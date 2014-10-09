@@ -1,0 +1,431 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0CEED10D19E6C385005C352F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED10C19E6C385005C352F /* main.m */; };
+		0CEED11019E6C385005C352F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED10F19E6C385005C352F /* AppDelegate.m */; };
+		0CEED11619E6C385005C352F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CEED11419E6C385005C352F /* Main.storyboard */; };
+		0CEED11819E6C385005C352F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CEED11719E6C385005C352F /* Images.xcassets */; };
+		0CEED11B19E6C385005C352F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CEED11919E6C385005C352F /* LaunchScreen.xib */; };
+		0CEED12719E6C385005C352F /* PSRFlicroMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED12619E6C385005C352F /* PSRFlicroMapTests.m */; };
+		0CEED13219E6C42E005C352F /* PSRMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED13119E6C42E005C352F /* PSRMapViewController.m */; };
+		0CEED13819E6CAF6005C352F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CEED13719E6CAF6005C352F /* MapKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0CEED12119E6C385005C352F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0CEED0FF19E6C385005C352F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0CEED10619E6C385005C352F;
+			remoteInfo = PSRFlicroMap;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0CEED10719E6C385005C352F /* PSRFlicroMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSRFlicroMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CEED10B19E6C385005C352F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CEED10C19E6C385005C352F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0CEED10E19E6C385005C352F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0CEED10F19E6C385005C352F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0CEED11519E6C385005C352F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0CEED11719E6C385005C352F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0CEED11A19E6C385005C352F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		0CEED12019E6C385005C352F /* PSRFlicroMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PSRFlicroMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CEED12519E6C385005C352F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CEED12619E6C385005C352F /* PSRFlicroMapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRFlicroMapTests.m; sourceTree = "<group>"; };
+		0CEED13019E6C42E005C352F /* PSRMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRMapViewController.h; sourceTree = "<group>"; };
+		0CEED13119E6C42E005C352F /* PSRMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRMapViewController.m; sourceTree = "<group>"; };
+		0CEED13719E6CAF6005C352F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0CEED10419E6C385005C352F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CEED13819E6CAF6005C352F /* MapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CEED11D19E6C385005C352F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0CEED0FE19E6C385005C352F = {
+			isa = PBXGroup;
+			children = (
+				0CEED10919E6C385005C352F /* PSRFlicroMap */,
+				0CEED12319E6C385005C352F /* PSRFlicroMapTests */,
+				0CEED10819E6C385005C352F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0CEED10819E6C385005C352F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0CEED10719E6C385005C352F /* PSRFlicroMap.app */,
+				0CEED12019E6C385005C352F /* PSRFlicroMapTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0CEED10919E6C385005C352F /* PSRFlicroMap */ = {
+			isa = PBXGroup;
+			children = (
+				0CEED10E19E6C385005C352F /* AppDelegate.h */,
+				0CEED10F19E6C385005C352F /* AppDelegate.m */,
+				0CEED13019E6C42E005C352F /* PSRMapViewController.h */,
+				0CEED13119E6C42E005C352F /* PSRMapViewController.m */,
+				0CEED11419E6C385005C352F /* Main.storyboard */,
+				0CEED11719E6C385005C352F /* Images.xcassets */,
+				0CEED11919E6C385005C352F /* LaunchScreen.xib */,
+				0CEED10A19E6C385005C352F /* Supporting Files */,
+			);
+			path = PSRFlicroMap;
+			sourceTree = "<group>";
+		};
+		0CEED10A19E6C385005C352F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0CEED13719E6CAF6005C352F /* MapKit.framework */,
+				0CEED10B19E6C385005C352F /* Info.plist */,
+				0CEED10C19E6C385005C352F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0CEED12319E6C385005C352F /* PSRFlicroMapTests */ = {
+			isa = PBXGroup;
+			children = (
+				0CEED12619E6C385005C352F /* PSRFlicroMapTests.m */,
+				0CEED12419E6C385005C352F /* Supporting Files */,
+			);
+			path = PSRFlicroMapTests;
+			sourceTree = "<group>";
+		};
+		0CEED12419E6C385005C352F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0CEED12519E6C385005C352F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0CEED10619E6C385005C352F /* PSRFlicroMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CEED12A19E6C385005C352F /* Build configuration list for PBXNativeTarget "PSRFlicroMap" */;
+			buildPhases = (
+				0CEED10319E6C385005C352F /* Sources */,
+				0CEED10419E6C385005C352F /* Frameworks */,
+				0CEED10519E6C385005C352F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PSRFlicroMap;
+			productName = PSRFlicroMap;
+			productReference = 0CEED10719E6C385005C352F /* PSRFlicroMap.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0CEED11F19E6C385005C352F /* PSRFlicroMapTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CEED12D19E6C385005C352F /* Build configuration list for PBXNativeTarget "PSRFlicroMapTests" */;
+			buildPhases = (
+				0CEED11C19E6C385005C352F /* Sources */,
+				0CEED11D19E6C385005C352F /* Frameworks */,
+				0CEED11E19E6C385005C352F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0CEED12219E6C385005C352F /* PBXTargetDependency */,
+			);
+			name = PSRFlicroMapTests;
+			productName = PSRFlicroMapTests;
+			productReference = 0CEED12019E6C385005C352F /* PSRFlicroMapTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0CEED0FF19E6C385005C352F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = M;
+				TargetAttributes = {
+					0CEED10619E6C385005C352F = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
+					0CEED11F19E6C385005C352F = {
+						CreatedOnToolsVersion = 6.0.1;
+						TestTargetID = 0CEED10619E6C385005C352F;
+					};
+				};
+			};
+			buildConfigurationList = 0CEED10219E6C385005C352F /* Build configuration list for PBXProject "PSRFlicroMap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0CEED0FE19E6C385005C352F;
+			productRefGroup = 0CEED10819E6C385005C352F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0CEED10619E6C385005C352F /* PSRFlicroMap */,
+				0CEED11F19E6C385005C352F /* PSRFlicroMapTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0CEED10519E6C385005C352F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CEED11619E6C385005C352F /* Main.storyboard in Resources */,
+				0CEED11B19E6C385005C352F /* LaunchScreen.xib in Resources */,
+				0CEED11819E6C385005C352F /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CEED11E19E6C385005C352F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0CEED10319E6C385005C352F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CEED11019E6C385005C352F /* AppDelegate.m in Sources */,
+				0CEED10D19E6C385005C352F /* main.m in Sources */,
+				0CEED13219E6C42E005C352F /* PSRMapViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CEED11C19E6C385005C352F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CEED12719E6C385005C352F /* PSRFlicroMapTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0CEED12219E6C385005C352F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0CEED10619E6C385005C352F /* PSRFlicroMap */;
+			targetProxy = 0CEED12119E6C385005C352F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0CEED11419E6C385005C352F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0CEED11519E6C385005C352F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0CEED11919E6C385005C352F /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0CEED11A19E6C385005C352F /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0CEED12819E6C385005C352F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0CEED12919E6C385005C352F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0CEED12B19E6C385005C352F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = PSRFlicroMap/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0CEED12C19E6C385005C352F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = PSRFlicroMap/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0CEED12E19E6C385005C352F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PSRFlicroMapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PSRFlicroMap.app/PSRFlicroMap";
+			};
+			name = Debug;
+		};
+		0CEED12F19E6C385005C352F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PSRFlicroMapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PSRFlicroMap.app/PSRFlicroMap";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0CEED10219E6C385005C352F /* Build configuration list for PBXProject "PSRFlicroMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CEED12819E6C385005C352F /* Debug */,
+				0CEED12919E6C385005C352F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0CEED12A19E6C385005C352F /* Build configuration list for PBXNativeTarget "PSRFlicroMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CEED12B19E6C385005C352F /* Debug */,
+				0CEED12C19E6C385005C352F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0CEED12D19E6C385005C352F /* Build configuration list for PBXNativeTarget "PSRFlicroMapTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CEED12E19E6C385005C352F /* Debug */,
+				0CEED12F19E6C385005C352F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0CEED0FF19E6C385005C352F /* Project object */;
+}

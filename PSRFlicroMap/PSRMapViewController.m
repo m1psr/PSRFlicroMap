@@ -7,8 +7,14 @@
 //
 
 #import "PSRMapViewController.h"
+#import "PSRFlickroPic.h"
+#import "PSRFlickroClient.h"
+#import "PSRMapPoint.h"
 
 @interface PSRMapViewController ()
+
+@property (nonatomic, strong) PSRFlickroClient *flickroClient;
+@property (nonatomic, strong) NSMutableArray *flickroPicIds; // загружается методом делегата
 
 @end
 
@@ -26,9 +32,14 @@
 
 #pragma mark - Private Methods
 
-- (void)lookupInFlickr {
-    self.flickrLookupTextField.hidden = YES;
-    [self.activityIndicator startAnimating];
+- (void)lookupInFlickr:(NSString *)tags {
+    
+    if (!self.flickroClient) {
+        self.flickroClient = [PSRFlickroClient sharedInstance];
+        self.flickroClient.delegate = self;
+    }
+    
+    [self.flickroClient loadFlickroPicsWithTags:tags];
 }
 
 #pragma mark - UITextFieldDelegate Methods
@@ -36,7 +47,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.flickrLookupTextField resignFirstResponder];
-    [self lookupInFlickr];
+    self.flickrLookupTextField.hidden = YES;
+    [self.activityIndicator startAnimating];
+    
+    [self lookupInFlickr:self.flickrLookupTextField.text];
+    
     return YES;
 }
 
@@ -47,6 +62,25 @@
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
     // http://stackoverflow.com/questions/19357941/show-user-location-in-mapview
     [self.worldView setCenterCoordinate:self.worldView.userLocation.coordinate animated:YES];
+}
+
+#pragma mark - PSRFlickroClientDelegate Methods
+
+- (void)flickroClient:(PSRFlickroClient *)client didReceivePics:(NSArray *)flickroPicIds
+{
+    self.flickroPicIds = [flickroPicIds mutableCopy];
+//    NSLog(@"%lu", (unsigned long)[self.flickroPicIds count]);
+//    NSLog(@"%@", self.flickroPicIds);
+    
+    for (NSNumber *flickroPicId in self.flickroPicIds) {
+        NSDictionary *geo = [self.flickroClient geoForFlickroPic:flickroPicId];
+//        NSLog(@"%@", geo);
+        PSRMapPoint *mapPoint = [[PSRMapPoint alloc] initWithLatitude:[geo[@"latitude"] doubleValue] longitude:[geo[@"longitude"] doubleValue]  andTitle:[self.flickroClient titleForFlickroPic:flickroPicId]];
+        [self.worldView addAnnotation:mapPoint];
+    }
+    
+    [[self activityIndicator] stopAnimating];
+    self.flickrLookupTextField.hidden = NO;
 }
 
 /*

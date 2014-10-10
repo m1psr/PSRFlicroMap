@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C6C32D419E7E7410088BE10 /* PSRFlickroClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C32D319E7E7410088BE10 /* PSRFlickroClient.m */; };
+		0C6C330A19E8153D0088BE10 /* PSRMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C330919E8153D0088BE10 /* PSRMapPoint.m */; };
+		0C841EA719E71270008C898C /* PSRFlickroPic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C841EA619E71270008C898C /* PSRFlickroPic.m */; };
 		0CEED10D19E6C385005C352F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED10C19E6C385005C352F /* main.m */; };
 		0CEED11019E6C385005C352F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED10F19E6C385005C352F /* AppDelegate.m */; };
 		0CEED11619E6C385005C352F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CEED11419E6C385005C352F /* Main.storyboard */; };
@@ -28,6 +31,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C6C32D219E7E7410088BE10 /* PSRFlickroClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRFlickroClient.h; sourceTree = "<group>"; };
+		0C6C32D319E7E7410088BE10 /* PSRFlickroClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRFlickroClient.m; sourceTree = "<group>"; };
+		0C6C330719E80E970088BE10 /* PSRFlickroClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRFlickroClientDelegate.h; sourceTree = "<group>"; };
+		0C6C330819E8153D0088BE10 /* PSRMapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRMapPoint.h; sourceTree = "<group>"; };
+		0C6C330919E8153D0088BE10 /* PSRMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRMapPoint.m; sourceTree = "<group>"; };
+		0C841EA519E71270008C898C /* PSRFlickroPic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRFlickroPic.h; sourceTree = "<group>"; };
+		0C841EA619E71270008C898C /* PSRFlickroPic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRFlickroPic.m; sourceTree = "<group>"; };
 		0CEED10719E6C385005C352F /* PSRFlicroMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSRFlicroMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CEED10B19E6C385005C352F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CEED10C19E6C385005C352F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -63,6 +73,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C6C330B19E815430088BE10 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0CEED13019E6C42E005C352F /* PSRMapViewController.h */,
+				0CEED13119E6C42E005C352F /* PSRMapViewController.m */,
+				0C6C330819E8153D0088BE10 /* PSRMapPoint.h */,
+				0C6C330919E8153D0088BE10 /* PSRMapPoint.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0C841EA819E71285008C898C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0C6C330719E80E970088BE10 /* PSRFlickroClientDelegate.h */,
+				0C6C32D219E7E7410088BE10 /* PSRFlickroClient.h */,
+				0C6C32D319E7E7410088BE10 /* PSRFlickroClient.m */,
+				0C841EA519E71270008C898C /* PSRFlickroPic.h */,
+				0C841EA619E71270008C898C /* PSRFlickroPic.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		0CEED0FE19E6C385005C352F = {
 			isa = PBXGroup;
 			children = (
@@ -86,8 +119,8 @@
 			children = (
 				0CEED10E19E6C385005C352F /* AppDelegate.h */,
 				0CEED10F19E6C385005C352F /* AppDelegate.m */,
-				0CEED13019E6C42E005C352F /* PSRMapViewController.h */,
-				0CEED13119E6C42E005C352F /* PSRMapViewController.m */,
+				0C841EA819E71285008C898C /* Model */,
+				0C6C330B19E815430088BE10 /* Views */,
 				0CEED11419E6C385005C352F /* Main.storyboard */,
 				0CEED11719E6C385005C352F /* Images.xcassets */,
 				0CEED11919E6C385005C352F /* LaunchScreen.xib */,
@@ -224,7 +257,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CEED11019E6C385005C352F /* AppDelegate.m in Sources */,
+				0C841EA719E71270008C898C /* PSRFlickroPic.m in Sources */,
 				0CEED10D19E6C385005C352F /* main.m in Sources */,
+				0C6C330A19E8153D0088BE10 /* PSRMapPoint.m in Sources */,
+				0C6C32D419E7E7410088BE10 /* PSRFlickroClient.m in Sources */,
 				0CEED13219E6C42E005C352F /* PSRMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +452,7 @@
 				0CEED12C19E6C385005C352F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0CEED12D19E6C385005C352F /* Build configuration list for PBXNativeTarget "PSRFlicroMapTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +461,7 @@
 				0CEED12F19E6C385005C352F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

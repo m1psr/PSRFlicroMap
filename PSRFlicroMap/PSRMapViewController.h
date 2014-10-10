@@ -9,7 +9,9 @@
 @import UIKit;
 @import MapKit;
 
-@interface PSRMapViewController : UIViewController <MKMapViewDelegate, UITextFieldDelegate>
+#import "PSRFlickroClientDelegate.h"
+
+@interface PSRMapViewController : UIViewController <MKMapViewDelegate, UITextFieldDelegate, PSRFlickroClientDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *worldView;
 @property (weak, nonatomic) IBOutlet UITextField *flickrLookupTextField;

@@ -7,14 +7,16 @@
 //
 
 #import "PSRMapViewController.h"
-#import "PSRFlickroPic.h"
+#import "PSRFlickroPicDetailViewController.h"
 #import "PSRFlickroClient.h"
+#import "PSRFlickroPic.h"
 #import "PSRMapPoint.h"
 
 @interface PSRMapViewController ()
 
 @property (nonatomic, strong) PSRFlickroClient *flickroClient;
 @property (nonatomic, strong) NSMutableArray *flickroPicIds; // добавленные на mapView точки
+@property (nonatomic) BOOL updatedUserLocation;
 
 @end
 
@@ -56,16 +58,14 @@
     }
     
     [self.worldView removeAnnotations:self.worldView.annotations];
+    self.updatedUserLocation = NO;
     
     [self.flickrLookupTextField resignFirstResponder];
     self.flickrLookupTextField.hidden = YES;
     [self.activityIndicator startAnimating];
     
-    if ([self.flickrLookupTextField.text length]) {
-        [self lookupInFlickr:self.flickrLookupTextField.text];
-    } else {
-        ; // TODO: show alert
-    }
+    [self lookupInFlickr:self.flickrLookupTextField.text];
+
     return YES;
 }
 
@@ -73,21 +73,57 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
+    if (self.updatedUserLocation) {
+        return;
+    }
+    
     // http://stackoverflow.com/questions/19357941/show-user-location-in-mapview
     [self.worldView setCenterCoordinate:self.worldView.userLocation.coordinate animated:YES];
+    self.updatedUserLocation = YES;
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if (![annotation isKindOfClass:[PSRMapPoint class]]) {
+        return nil;
+    }
+    
+    NSString *reusableIdentifier = @"PSRAnnotationIdentifier";
+    MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:reusableIdentifier];
+    if (!aView) {
+        aView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reusableIdentifier];
+        aView.canShowCallout = YES;
+    } else {
+        aView.annotation = annotation;
+        aView.image = nil;
+    }
+    
+    PSRMapPoint *mapPoint = (PSRMapPoint *)annotation;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData * imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:mapPoint.flickroPic.strURLImageSquare]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            aView.image = [[UIImage alloc] initWithData:imageData];
+        });
+    });
+    
+    return aView;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)aView
+{
+    [self performSegueWithIdentifier: @"flickroPicDetailSegue" sender: aView];
 }
 
 #pragma mark - PSRFlickroClientDelegate Methods
 
 - (void)didReceiveNewPic:(NSString *)newPicId
 {
-    
-    NSDictionary *geo = [self.flickroClient geoForFlickroPic:newPicId];
-    PSRMapPoint *mapPoint = [[PSRMapPoint alloc] initWithLatitude:[geo[@"latitude"] doubleValue] longitude:[geo[@"longitude"] doubleValue]  andTitle:[self.flickroClient titleForFlickroPic:newPicId]];
+    PSRMapPoint *mapPoint = [[PSRMapPoint alloc] initWithFlickroPic:[self.flickroClient flickroPicForPicId:newPicId]];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.worldView addAnnotation:mapPoint];
     });
+    
     [_flickroPicIds addObject:newPicId];
     
     if ([_flickroPicIds count] == [self.flickroClient howManyPicsWeAreWaiting]) {
@@ -100,22 +136,25 @@
 
 - (void)picsNotFound
 {
-    // TODO: show alert
-    NSLog(@"*** %s", __PRETTY_FUNCTION__);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                    message:@"Ничего не найдено"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
     [[self activityIndicator] stopAnimating];
     self.flickrLookupTextField.hidden = NO;
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.destinationViewController isKindOfClass:[PSRFlickroPicDetailViewController class]]) {
+        MKAnnotationView *aView = (MKAnnotationView *)sender;
+        PSRFlickroPic *flickroPic = [(PSRMapPoint *)aView.annotation flickroPic];
+        PSRFlickroPicDetailViewController *flickroPicDetailVC = (PSRFlickroPicDetailViewController *)segue.destinationViewController;
+        flickroPicDetailVC.flickroPic = flickroPic;
+    }
 }
-*/
-
-
 
 @end

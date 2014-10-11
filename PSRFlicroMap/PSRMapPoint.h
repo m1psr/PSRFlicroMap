@@ -6,14 +6,19 @@
 //  Copyright (c) 2014 M. All rights reserved.
 //
 
-@import Foundation;
 @import MapKit;
+
+@class PSRFlickroPic;
 
 @interface PSRMapPoint : NSObject <MKAnnotation>
 
+@property (nonatomic, strong, readonly) PSRFlickroPic *flickroPic;
+
+- (instancetype)initWithFlickroPic:(PSRFlickroPic *)flickroPic;
+
+// MKAnnotation
+
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly, copy) NSString *title; // Title for use by selection UI
-
-- (instancetype)initWithLatitude:(double)latitude longitude:(double)longitude andTitle:(NSString *)title;
 
 @end

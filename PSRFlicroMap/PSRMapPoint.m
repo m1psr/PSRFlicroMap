@@ -7,17 +7,35 @@
 //
 
 #import "PSRMapPoint.h"
+#import "PSRFlickroPic.h"
 
 @implementation PSRMapPoint
 
-- (instancetype)initWithLatitude:(double)latitude longitude:(double)longitude andTitle:(NSString *)title
+@dynamic coordinate, title;
+
+- (instancetype)initWithFlickroPic:(PSRFlickroPic *)flickroPic
 {
     self = [super init];
     if (self) {
-        _coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-        _title = [title copy];
+        _flickroPic = flickroPic;
     }
     return self;
+}
+
+- (instancetype)init
+{
+    NSAssert(NO, @"Use initWithFlicroPic:");
+    return nil;
+}
+
+- (CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake(self.flickroPic.latitude, self.flickroPic.longitude);
+}
+
+- (NSString *)title
+{
+    return self.flickroPic.title;
 }
 
 @end

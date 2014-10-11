@@ -80,18 +80,9 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
     return [_flickroPics count];
 }
 
-- (NSDictionary *)geoForFlickroPic:(NSString *)flickroPicId
+- (PSRFlickroPic *)flickroPicForPicId:(NSString *)picId
 {
-    PSRFlickroPic *flickroPic = (PSRFlickroPic *)_flickroPics[flickroPicId];
-    NSDictionary *r = @{@"latitude" : [NSNumber numberWithDouble:flickroPic.latitude],
-                        @"longitude" : [NSNumber numberWithDouble:flickroPic.longitude]};
-    return r;
-}
-
-- (NSString *)titleForFlickroPic:(NSString *)flickroPicId
-{
-    PSRFlickroPic *flickroPic = (PSRFlickroPic *)_flickroPics[flickroPicId];
-    return flickroPic.title;
+    return _flickroPics[picId];
 }
 
 #pragma mark - Private Methods

@@ -10,6 +10,8 @@
 
 #import "PSRFlickroClientDelegate.h"
 
+@class PSRFlickroPic;
+
 @interface PSRFlickroClient : NSObject
 
 @property (nonatomic, weak) id<PSRFlickroClientDelegate> delegate;
@@ -20,7 +22,6 @@
 
 - (NSUInteger)howManyPicsWeAreWaiting;
 
-- (NSDictionary *)geoForFlickroPic:(NSString *)flickroPicId;
-- (NSString *)titleForFlickroPic:(NSString *)flickroPicId;
+- (PSRFlickroPic *)flickroPicForPicId:(NSString *)picId;
 
 @end

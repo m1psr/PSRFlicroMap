@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C6C32D419E7E7410088BE10 /* PSRFlickroClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C32D319E7E7410088BE10 /* PSRFlickroClient.m */; };
 		0C6C330A19E8153D0088BE10 /* PSRMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C330919E8153D0088BE10 /* PSRMapPoint.m */; };
+		0C73D88219E97C3900E61315 /* PSRFlickroPicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C73D88119E97C3900E61315 /* PSRFlickroPicDetailViewController.m */; };
 		0C841EA719E71270008C898C /* PSRFlickroPic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C841EA619E71270008C898C /* PSRFlickroPic.m */; };
 		0CEED10D19E6C385005C352F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED10C19E6C385005C352F /* main.m */; };
 		0CEED11019E6C385005C352F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED10F19E6C385005C352F /* AppDelegate.m */; };
@@ -36,6 +37,8 @@
 		0C6C330719E80E970088BE10 /* PSRFlickroClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRFlickroClientDelegate.h; sourceTree = "<group>"; };
 		0C6C330819E8153D0088BE10 /* PSRMapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRMapPoint.h; sourceTree = "<group>"; };
 		0C6C330919E8153D0088BE10 /* PSRMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRMapPoint.m; sourceTree = "<group>"; };
+		0C73D88019E97C3900E61315 /* PSRFlickroPicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRFlickroPicDetailViewController.h; sourceTree = "<group>"; };
+		0C73D88119E97C3900E61315 /* PSRFlickroPicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRFlickroPicDetailViewController.m; sourceTree = "<group>"; };
 		0C841EA519E71270008C898C /* PSRFlickroPic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRFlickroPic.h; sourceTree = "<group>"; };
 		0C841EA619E71270008C898C /* PSRFlickroPic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRFlickroPic.m; sourceTree = "<group>"; };
 		0CEED10719E6C385005C352F /* PSRFlicroMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSRFlicroMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +83,8 @@
 				0CEED13119E6C42E005C352F /* PSRMapViewController.m */,
 				0C6C330819E8153D0088BE10 /* PSRMapPoint.h */,
 				0C6C330919E8153D0088BE10 /* PSRMapPoint.m */,
+				0C73D88019E97C3900E61315 /* PSRFlickroPicDetailViewController.h */,
+				0C73D88119E97C3900E61315 /* PSRFlickroPicDetailViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 				0CEED10D19E6C385005C352F /* main.m in Sources */,
 				0C6C330A19E8153D0088BE10 /* PSRMapPoint.m in Sources */,
 				0C6C32D419E7E7410088BE10 /* PSRFlickroClient.m in Sources */,
+				0C73D88219E97C3900E61315 /* PSRFlickroPicDetailViewController.m in Sources */,
 				0CEED13219E6C42E005C352F /* PSRMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

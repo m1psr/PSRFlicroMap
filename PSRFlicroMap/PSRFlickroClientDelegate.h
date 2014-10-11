@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 M. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class PSRFlickroClient;
 
 @protocol PSRFlickroClientDelegate <NSObject>
 
-- (void)flickroClient:(PSRFlickroClient *)client didReceivePics:(NSArray *)flickroPicIds;
-//- (void)flickroClient:(PSRFlickroClient *)client didReceivePicLa
+- (void)didReceiveNewPic:(NSString *)newPicId;
+- (void)picsNotFound;
 
 @end

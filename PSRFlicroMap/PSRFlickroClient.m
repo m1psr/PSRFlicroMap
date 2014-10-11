@@ -14,7 +14,6 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
 @implementation PSRFlickroClient
 {
     NSMutableDictionary *_flickroPics;
-    int _loading;
 }
 
 + (PSRFlickroClient *)sharedInstance
@@ -31,10 +30,7 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
 
 - (void)loadFlickroPicsWithTags:(NSString *)tags
 {
-    _flickroPics = [NSMutableDictionary dictionaryWithCapacity:250];
-    _loading = 0;
-    
-    // https://api.flickr.com/services/rest/?api_key=f577bf636cdb7f7af139c65271433102&format=json&nojsoncallback=1&method=flickr.photos.search&tags=xxx
+    // request example: https://api.flickr.com/services/rest/?api_key=f577bf636cdb7f7af139c65271433102&format=json&nojsoncallback=1&method=flickr.photos.search&tags=xxx
     
     NSURLSession *session = [NSURLSession sharedSession];
     NSString *str = [NSString stringWithFormat:@"%@&method=flickr.photos.search&has_geo=1&tags=%@", kPSRFlicroClientStrUrlBase, tags];
@@ -44,33 +40,47 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
     
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         
+        if (error) {
+            [self.delegate picsNotFound];
+            return;
+        }
+        
         // NOTE: тут мы получаем только id'шники картинок и их тайтлы
         
         NSData *dataJSON = [[NSData alloc] initWithContentsOfURL:location];
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:dataJSON options:kNilOptions error:nil];
         
         NSInteger total = [responseDictionary[@"photos"][@"total"] integerValue];
-//        NSLog(@"%lu", (unsigned long)total);
         
-        if (total) {
-            NSArray *photosData = responseDictionary[@"photos"][@"photo"];
-            for (NSDictionary *photoInfo in photosData) {
-                
-                NSNumber *photoId = photoInfo[@"id"];
-                NSString *photoTitle = photoInfo[@"title"];
-                
-                PSRFlickroPic *flicroPic = [[PSRFlickroPic alloc] initWithFlicroPicId:[photoId integerValue] andTitle:photoTitle];
-                _flickroPics[photoId] = flicroPic;
-            }
+        if (!total) {
+            [self.delegate picsNotFound];
+            return;
+        }
+            
+        _flickroPics = [NSMutableDictionary dictionaryWithCapacity:total];
+        
+        NSArray *photosData = responseDictionary[@"photos"][@"photo"];
+        for (NSDictionary *photoInfo in photosData) {
+            
+            NSString *picId = photoInfo[@"id"];
+            NSString *picTitle = photoInfo[@"title"];
+            
+            PSRFlickroPic *flicroPic = [[PSRFlickroPic alloc] initWithFlicroPicId:picId andTitle:picTitle];
+            _flickroPics[picId] = flicroPic;
         }
         
-        [self p_loadGeoInFlicroPics];
+        [self p_loadGeoForFlicroPics]; // подргужаем геоинфу к созданным объектам
     }];
     
     [task resume];
 }
 
-- (NSDictionary *)geoForFlickroPic:(NSNumber *)flickroPicId
+- (NSUInteger)howManyPicsWeAreWaiting
+{
+    return [_flickroPics count];
+}
+
+- (NSDictionary *)geoForFlickroPic:(NSString *)flickroPicId
 {
     PSRFlickroPic *flickroPic = (PSRFlickroPic *)_flickroPics[flickroPicId];
     NSDictionary *r = @{@"latitude" : [NSNumber numberWithDouble:flickroPic.latitude],
@@ -78,7 +88,7 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
     return r;
 }
 
-- (NSString *)titleForFlickroPic:(NSNumber *)flickroPicId
+- (NSString *)titleForFlickroPic:(NSString *)flickroPicId
 {
     PSRFlickroPic *flickroPic = (PSRFlickroPic *)_flickroPics[flickroPicId];
     return flickroPic.title;
@@ -86,13 +96,13 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
 
 #pragma mark - Private Methods
 
-- (void)p_loadGeoInFlicroPics
+- (void)p_loadGeoForFlicroPics
 {
     // добавляем широту и долготу к фликрокартинкам
     
-    [_flickroPics enumerateKeysAndObjectsUsingBlock:^(NSNumber *picFlickrId, PSRFlickroPic *obj, BOOL *stop) {
+    [_flickroPics enumerateKeysAndObjectsUsingBlock:^(NSString *picFlickrId, PSRFlickroPic *obj, BOOL *stop) {
         
-        // https://api.flickr.com/services/rest/?api_key=f577bf636cdb7f7af139c65271433102&format=json&nojsoncallback=1&method=flickr.photos.geo.getLocation&photo_id=15205077469
+        // request example: https://api.flickr.com/services/rest/?api_key=f577bf636cdb7f7af139c65271433102&format=json&nojsoncallback=1&method=flickr.photos.geo.getLocation&photo_id=15205077469
         
         NSURLSession *session = [NSURLSession sharedSession];
         NSString *str = [NSString stringWithFormat:@"%@&method=flickr.photos.geo.getLocation&photo_id=%@", kPSRFlicroClientStrUrlBase, picFlickrId];
@@ -105,50 +115,62 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
             NSData *dataJSON = [[NSData alloc] initWithContentsOfURL:location];
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:dataJSON options:kNilOptions error:nil];
             
-            NSNumber *picId = responseDictionary[@"photo"][@"id"];
+            NSString *picId = responseDictionary[@"photo"][@"id"];
             double latitude = [responseDictionary[@"photo"][@"location"][@"latitude"] doubleValue];
             double longitude = [responseDictionary[@"photo"][@"location"][@"longitude"] doubleValue];
             
             [_flickroPics[picId] setLatitude:latitude andLognitude:longitude]; // ???: а здесь мы обратиться по obj уже не можем, так?
             
-            if (++_loading >= 250) {
-//                NSLog(@"%d", _loading);
-                [self.delegate flickroClient:self didReceivePics:[_flickroPics allKeys]];
-            }
+            [self p_loadImageURLsForFlickroPicWithFlickrId:picId]; // теперь подгружаем url'ы картинок
         }];
         
         [task resume];
     }];
 }
 
-// get Picture
-//
-//            // https://api.flickr.com/services/rest/?api_key=f577bf636cdb7f7af139c65271433102&format=json&nojsoncallback=1&method=flickr.photos.getSizes&photo_id=15448211786
-//
-//            NSString *str = [NSString stringWithFormat:@"%@&method=flickr.photos.getSizes&photo_id=%@", strUrlBase, photoId];
-//            NSLog(@"%@", photoId);
-//
-//            NSString *strEncoding = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//            NSURL *url = [[NSURL alloc] initWithString:strEncoding];
-//            NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//            NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-//                NSData *dataJSON = [[NSData alloc] initWithContentsOfURL:location];
-//                NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:dataJSON options:kNilOptions error:nil];
-//                NSLog(@"%@", responseDictionary);
-//                for (NSDictionary *picture in responseDictionary[@"sizes"][@"size"]) {
-//                    if ([picture[@"label"] isEqualToString:@"Square"]) {
-//                        NSLog(@"%@", picture[@"source"]);
-//                    }
-//                    if ([picture[@"label"] isEqualToString:@"Large"]) {
-//                        NSLog(@"%@", picture[@"source"]);
-//                    }
-//                }
-//                //                                                                NSLog(@"%@", responseDictionary[@"photo"][@"location"][@"longitude"]);
-//
-//
-//
-//
-//            }];
-//            [task resume];
+- (void)p_loadImageURLsForFlickroPicWithFlickrId:(NSString *)picFlickrId
+{
+    // request example: https://api.flickr.com/services/rest/?api_key=f577bf636cdb7f7af139c65271433102&format=json&nojsoncallback=1&method=flickr.photos.getSizes&photo_id=15448211786
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSString *str = [NSString stringWithFormat:@"%@&method=flickr.photos.getSizes&photo_id=%@", kPSRFlicroClientStrUrlBase, picFlickrId];
+    NSString *strEncoding = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [[NSURL alloc] initWithString:strEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        
+        NSData *dataJSON = [[NSData alloc] initWithContentsOfURL:location];
+        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:dataJSON options:kNilOptions error:nil];
+        
+        NSString *stringWithPicId = responseDictionary[@"sizes"][@"size"][0][@"url"];
+        NSString *picId = [self p_extractFlickrPicIdFromImageUrlStr:stringWithPicId];
+
+        for (NSDictionary *picture in responseDictionary[@"sizes"][@"size"]) {
+            if ([picture[@"label"] isEqualToString:@"Square"]) {
+                [_flickroPics[picId] setStrURLImageSquare:picture[@"source"]];
+            } else if ([picture[@"label"] isEqualToString:@"Large"]) {
+                [_flickroPics[picId] setStrURLImageLarge:picture[@"source"]];
+            }
+        }
+        
+        [self.delegate didReceiveNewPic:picId]; // сообщим делегату, что точку можно размещать на карте
+    }];
+    
+    [task resume];
+}
+
+- (NSString *)p_extractFlickrPicIdFromImageUrlStr:(NSString *)stringWithPicId
+{
+    // example: https://www.flickr.com/photos/szirtesi/14695172858/sizes/sq/
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"/[0-9]+/sizes/" options:0 error:nil];
+    
+    NSRange range = [regex rangeOfFirstMatchInString:stringWithPicId options:0 range:NSMakeRange(0, [stringWithPicId length])];
+    NSString *result = [stringWithPicId substringWithRange:range];
+    NSString *picId = [result substringWithRange:NSMakeRange(1, [result length] - 8)];
+    
+    return picId;
+}
 
 @end

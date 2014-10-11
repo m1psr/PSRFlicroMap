@@ -10,12 +10,16 @@
 
 @interface PSRFlickroPic : NSObject
 
-@property (nonatomic, readonly) NSUInteger flickrId;
-@property (nonatomic, copy, readonly) NSString *title;
-@property (nonatomic, readonly) double latitude;
-@property (nonatomic, readonly) double longitude;
+@property (nonatomic, copy) NSString *flickrId;
+@property (nonatomic, copy) NSString *title;
 
-- (instancetype)initWithFlicroPicId:(NSUInteger)flickrPicId andTitle:(NSString *)title;
+@property (nonatomic) double latitude;
+@property (nonatomic) double longitude;
+
+@property (nonatomic, copy) NSString *strURLImageSquare;
+@property (nonatomic, copy) NSString *strURLImageLarge;
+
+- (instancetype)initWithFlicroPicId:(NSString *)flickrPicId andTitle:(NSString *)title;
 
 - (void)setLatitude:(double)latitude andLognitude:(double)longitude;
 

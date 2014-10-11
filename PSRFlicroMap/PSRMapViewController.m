@@ -14,7 +14,7 @@
 @interface PSRMapViewController ()
 
 @property (nonatomic, strong) PSRFlickroClient *flickroClient;
-@property (nonatomic, strong) NSMutableArray *flickroPicIds; // загружается методом делегата
+@property (nonatomic, strong) NSMutableArray *flickroPicIds; // добавленные на mapView точки
 
 @end
 
@@ -32,13 +32,14 @@
 
 #pragma mark - Private Methods
 
-- (void)lookupInFlickr:(NSString *)tags {
+- (void)lookupInFlickr:(NSString *)tags
+{
     
     if (!self.flickroClient) {
         self.flickroClient = [PSRFlickroClient sharedInstance];
         self.flickroClient.delegate = self;
     }
-    
+    self.flickroPicIds = [NSMutableArray array];
     [self.flickroClient loadFlickroPicsWithTags:tags];
 }
 
@@ -46,12 +47,25 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    // http://stackoverflow.com/questions/5756256/trim-spaces-from-end-of-a-nsstring
+    NSString *trimmedString = [self.flickrLookupTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    self.flickrLookupTextField.text = trimmedString;
+    
+    if (![self.flickrLookupTextField.text length]) {
+        return YES;
+    }
+    
+    [self.worldView removeAnnotations:self.worldView.annotations];
+    
     [self.flickrLookupTextField resignFirstResponder];
     self.flickrLookupTextField.hidden = YES;
     [self.activityIndicator startAnimating];
     
-    [self lookupInFlickr:self.flickrLookupTextField.text];
-    
+    if ([self.flickrLookupTextField.text length]) {
+        [self lookupInFlickr:self.flickrLookupTextField.text];
+    } else {
+        ; // TODO: show alert
+    }
     return YES;
 }
 
@@ -59,26 +73,35 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-//    NSLog(@"%s", __PRETTY_FUNCTION__);
     // http://stackoverflow.com/questions/19357941/show-user-location-in-mapview
     [self.worldView setCenterCoordinate:self.worldView.userLocation.coordinate animated:YES];
 }
 
 #pragma mark - PSRFlickroClientDelegate Methods
 
-- (void)flickroClient:(PSRFlickroClient *)client didReceivePics:(NSArray *)flickroPicIds
+- (void)didReceiveNewPic:(NSString *)newPicId
 {
-    self.flickroPicIds = [flickroPicIds mutableCopy];
-//    NSLog(@"%lu", (unsigned long)[self.flickroPicIds count]);
-//    NSLog(@"%@", self.flickroPicIds);
     
-    for (NSNumber *flickroPicId in self.flickroPicIds) {
-        NSDictionary *geo = [self.flickroClient geoForFlickroPic:flickroPicId];
-//        NSLog(@"%@", geo);
-        PSRMapPoint *mapPoint = [[PSRMapPoint alloc] initWithLatitude:[geo[@"latitude"] doubleValue] longitude:[geo[@"longitude"] doubleValue]  andTitle:[self.flickroClient titleForFlickroPic:flickroPicId]];
+    NSDictionary *geo = [self.flickroClient geoForFlickroPic:newPicId];
+    PSRMapPoint *mapPoint = [[PSRMapPoint alloc] initWithLatitude:[geo[@"latitude"] doubleValue] longitude:[geo[@"longitude"] doubleValue]  andTitle:[self.flickroClient titleForFlickroPic:newPicId]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.worldView addAnnotation:mapPoint];
-    }
+    });
+    [_flickroPicIds addObject:newPicId];
     
+    if ([_flickroPicIds count] == [self.flickroClient howManyPicsWeAreWaiting]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[self activityIndicator] stopAnimating];
+            self.flickrLookupTextField.hidden = NO;
+        });
+    }
+}
+
+- (void)picsNotFound
+{
+    // TODO: show alert
+    NSLog(@"*** %s", __PRETTY_FUNCTION__);
     [[self activityIndicator] stopAnimating];
     self.flickrLookupTextField.hidden = NO;
 }

@@ -8,22 +8,13 @@
 
 #import "PSRFlickroPic.h"
 
-@interface PSRFlickroPic ()
-
-@property (nonatomic, readwrite) NSUInteger flickrId;
-@property (nonatomic, copy, readwrite) NSString *title;
-@property (nonatomic, readwrite) double latitude;
-@property (nonatomic, readwrite) double longitude;
-
-@end
-
 @implementation PSRFlickroPic
 
-- (instancetype)initWithFlicroPicId:(NSUInteger)flickrPicId andTitle:(NSString *)title
+- (instancetype)initWithFlicroPicId:(NSString *)flickrPicId andTitle:(NSString *)title
 {
     self = [super init];
     if (self) {
-        _flickrId = flickrPicId;
+        _flickrId = [flickrPicId copy];
         _title = [title copy];
     }
     return self;
@@ -39,6 +30,19 @@
 {
     self.latitude = latitude;
     self.longitude = longitude;
+}
+
+-  (void)setStrURLImageSquare:(NSString *)strURLImageSquare andStrURLImageLarge:(NSString *)strURLImageLarge
+{
+    self.strURLImageSquare = strURLImageSquare;
+    self.strURLImageLarge = strURLImageLarge;
+}
+
+#pragma mark - @Override
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@ : %p; id: %@ geo(%f, %f); squareURL: %@, largeURL: %@>", [self class], self, _flickrId, _latitude, _longitude, _strURLImageSquare, _strURLImageLarge];
 }
 
 @end

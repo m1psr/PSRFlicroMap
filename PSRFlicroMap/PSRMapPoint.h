@@ -12,10 +12,7 @@
 @interface PSRMapPoint : NSObject <MKAnnotation>
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-
-// @optional
-
-@property (nonatomic, readonly, copy) NSString *title; // Title for use by selection UI.
+@property (nonatomic, readonly, copy) NSString *title; // Title for use by selection UI
 
 - (instancetype)initWithLatitude:(double)latitude longitude:(double)longitude andTitle:(NSString *)title;
 

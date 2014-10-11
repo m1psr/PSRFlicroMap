@@ -18,7 +18,9 @@
 
 - (void)loadFlickroPicsWithTags:(NSString *)tags;
 
-- (NSDictionary *)geoForFlickroPic:(NSNumber *)flickroPicId;
-- (NSString *)titleForFlickroPic:(NSNumber *)flickroPicId;
+- (NSUInteger)howManyPicsWeAreWaiting;
+
+- (NSDictionary *)geoForFlickroPic:(NSString *)flickroPicId;
+- (NSString *)titleForFlickroPic:(NSString *)flickroPicId;
 
 @end

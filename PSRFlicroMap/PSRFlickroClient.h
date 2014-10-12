@@ -19,9 +19,9 @@
 + (PSRFlickroClient *)sharedInstance;
 
 - (void)loadFlickroPicsWithTags:(NSString *)tags;
-
 - (NSUInteger)howManyPicsWeAreWaiting;
 
 - (PSRFlickroPic *)flickroPicForPicId:(NSString *)picId;
+- (NSData *)cachedImageForUrl:(NSURL *)imageUrl;
 
 @end

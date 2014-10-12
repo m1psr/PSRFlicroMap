@@ -36,7 +36,6 @@
 
 - (void)lookupInFlickr:(NSString *)tags
 {
-    
     if (!self.flickroClient) {
         self.flickroClient = [PSRFlickroClient sharedInstance];
         self.flickroClient.delegate = self;
@@ -100,7 +99,10 @@
     
     PSRMapPoint *mapPoint = (PSRMapPoint *)annotation;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSData * imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:mapPoint.flickroPic.strURLImageSquare]];
+        
+        NSURL *imageSquareURL = [NSURL URLWithString:mapPoint.flickroPic.strURLImageSquare];
+        NSData *imageData = [self.flickroClient cachedImageForUrl:imageSquareURL];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             aView.image = [[UIImage alloc] initWithData:imageData];
         });
@@ -136,12 +138,9 @@
 
 - (void)picsNotFound
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                    message:@"Ничего не найдено"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ничего не найдено" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
+    
     [[self activityIndicator] stopAnimating];
     self.flickrLookupTextField.hidden = NO;
 }
@@ -149,6 +148,7 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
     if ([segue.destinationViewController isKindOfClass:[PSRFlickroPicDetailViewController class]]) {
         MKAnnotationView *aView = (MKAnnotationView *)sender;
         PSRFlickroPic *flickroPic = [(PSRMapPoint *)aView.annotation flickroPic];

@@ -14,6 +14,7 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
 @implementation PSRFlickroClient
 {
     NSMutableDictionary *_flickroPics;
+    NSCache *_cacheImages;
 }
 
 + (PSRFlickroClient *)sharedInstance
@@ -83,6 +84,21 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
 - (PSRFlickroPic *)flickroPicForPicId:(NSString *)picId
 {
     return _flickroPics[picId];
+}
+
+- (NSData *)cachedImageForUrl:(NSURL *)imageUrl
+{
+    if (!_cacheImages) {
+        _cacheImages = [NSCache new];
+    }
+    
+    NSData *imageData = [_cacheImages objectForKey:imageUrl];
+    if (!imageData) {
+        imageData = [[NSData alloc] initWithContentsOfURL:imageUrl];
+        [_cacheImages setObject:imageData forKey:imageUrl];
+    }
+    
+    return imageData;
 }
 
 #pragma mark - Private Methods

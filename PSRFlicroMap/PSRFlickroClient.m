@@ -91,8 +91,8 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
 {
     // добавляем широту и долготу к фликрокартинкам
     
-    [_flickroPics enumerateKeysAndObjectsUsingBlock:^(NSString *picFlickrId, PSRFlickroPic *obj, BOOL *stop) {
-        
+    [_flickroPics enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *picFlickrId, PSRFlickroPic *obj, BOOL *stop) {
+    
         // request example: https://api.flickr.com/services/rest/?api_key=f577bf636cdb7f7af139c65271433102&format=json&nojsoncallback=1&method=flickr.photos.geo.getLocation&photo_id=15205077469
         
         NSURLSession *session = [NSURLSession sharedSession];
@@ -153,7 +153,7 @@ NSString * const kPSRFlicroClientStrUrlBase = @"https://api.flickr.com/services/
 
 - (NSString *)p_extractFlickrPicIdFromImageUrlStr:(NSString *)stringWithPicId
 {
-    // example: https://www.flickr.com/photos/szirtesi/14695172858/sizes/sq/
+    // example: stringWithPicId = https://www.flickr.com/photos/szirtesi/14695172858/sizes/sq/
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"/[0-9]+/sizes/" options:0 error:nil];
     

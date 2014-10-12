@@ -12,12 +12,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    
-    // http://stackoverflow.com/questions/166712/how-to-show-the-loading-indicator-in-the-top-status-bar
-    UIApplication* app = [UIApplication sharedApplication];
-    app.networkActivityIndicatorVisible = YES;
-    
+    // Override point for customization after application launch.    
     return YES;
 }
 

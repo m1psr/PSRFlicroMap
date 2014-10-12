@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     self.worldView.showsUserLocation = YES;
 }
 
